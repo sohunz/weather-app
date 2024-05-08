@@ -17,8 +17,6 @@ const Home = () => {
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const { weather, loading, error } = useWeather(location);
 
-    console.log(weather);
-
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
         const filteredSuggestions = provinces.filter((province) =>
@@ -62,7 +60,7 @@ const Home = () => {
     if (error) return <div>Error: {error}</div>;
     return (
         <div className="w-full h-screen bg-violet-900 flex flex-col items-center justify-center overflow-hidden">
-            <div className="lg:max-w-[480px] max-w-[340px] lg:min-w-[480px] min-w-[340px] pt-10 rounded-xl lg:p-10 md:p-5 sm:p-5 p-5  shadow bg-violet-800 overflow-hidden">
+            <div className="max-w-[480px] lg:min-w-[480px] md:min-w-[480px] sm:min-w-[480px] min-w-[90%] pt-10 rounded-xl lg:p-10 md:p-10 sm:p-10 p-5 shadow bg-violet-800 overflow-hidden ">
                 <div className="w-full flex gap-2 justify-center items-center relative">
                     <input
                         className="appearance-none shadow-md border-violet-500 rounded-full py-5 px-5 text-white leading-tight focus:outline-none bg-violet-700 focus:border-violet-500 focus:bg-violet-600 w-full"
@@ -90,14 +88,14 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-center">
-                    <div className="lg:max-w-[180px] max-w-[160px]">
+                    <div className="lg:max-w-[180px] md:max-w-[180px] sm:max-w-[180px] max-w-[160px]">
                         {weathers(data)}
                     </div>
                     <p className="lg:text-xl text-lg">
                         <span className="text-gray-300">{weatherDetail}</span>
                     </p>
                     <p className="text-white text-7xl font-bold mb-3">
-                        {weatherConvert(weather.main?.temp)} °C
+                        {weatherConvert(weather.main?.temp)}°C
                     </p>
                     <p className="text-gray-200 text-4xl font-bold">
                         {weather.name}
@@ -105,11 +103,11 @@ const Home = () => {
                 </div>
                 <div className="flex items-center justify-between mt-10">
                     <div className="flex gap-2">
-                        <div className="lg:max-w-[30px] max-w-[20px] mt-2">
+                        <div className="lg:max-w-[30px] md:max-w-[30px] sm:max-w-[30px] max-w-[20px] mt-2">
                             <img src={humidity} alt="" />
                         </div>
                         <div className="text-gray-300">
-                            <p className="lg:text-2xl text-lg font-semibold">
+                            <p className="lg:text-2xl md:text-2xl sm:text-2xl text-lg font-semibold">
                                 {weather.main?.humidity}%
                             </p>
                             <p className="lg:text-lg text-md font-semibold">
@@ -118,11 +116,11 @@ const Home = () => {
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <div className="lg:max-w-[35px] max-w-[27px] mt-[5px]">
+                        <div className="lg:max-w-[35px] md:max-w-[35px] sm:max-w-[35px] max-w-[27px] mt-[5px]">
                             <img src={wind} alt="" />
                         </div>
                         <div className="text-gray-300">
-                            <p className="lg:text-2xl text-lg font-semibold">
+                            <p className="lg:text-2xl md:text-2xl sm:text-2xl text-lg font-semibold">
                                 {weather.wind?.speed} km/h
                             </p>
                             <p className="lg:text-lg text-md font-semibold">
