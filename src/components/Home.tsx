@@ -90,8 +90,10 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-center">
-                    <div className="max-w-[180px] mb-2">{weathers(data)}</div>
-                    <p className="text-xl pb-3">
+                    <div className="lg:max-w-[180px] max-w-[160px]">
+                        {weathers(data)}
+                    </div>
+                    <p className="lg:text-xl text-lg">
                         <span className="text-gray-300">{weatherDetail}</span>
                     </p>
                     <p className="text-white text-7xl font-bold mb-3">
@@ -103,25 +105,29 @@ const Home = () => {
                 </div>
                 <div className="flex items-center justify-between mt-10">
                     <div className="flex gap-2">
-                        <div className="max-w-[30px] mt-2">
+                        <div className="lg:max-w-[30px] max-w-[20px] mt-2">
                             <img src={humidity} alt="" />
                         </div>
                         <div className="text-gray-300">
-                            <p className="text-2xl font-semibold">
+                            <p className="lg:text-2xl text-lg font-semibold">
                                 {weather.main?.humidity}%
                             </p>
-                            <p className="text-lg font-semibold">Humidity</p>
+                            <p className="lg:text-lg text-md font-semibold">
+                                Humidity
+                            </p>
                         </div>
                     </div>
                     <div className="flex gap-2">
-                        <div className="max-w-[35px] mt-[5px]">
+                        <div className="lg:max-w-[35px] max-w-[27px] mt-[5px]">
                             <img src={wind} alt="" />
                         </div>
                         <div className="text-gray-300">
-                            <p className="text-2xl font-semibold">
+                            <p className="lg:text-2xl text-lg font-semibold">
                                 {weather.wind?.speed} km/h
                             </p>
-                            <p className="text-lg font-semibold">Wind speed</p>
+                            <p className="lg:text-lg text-md font-semibold">
+                                Wind speed
+                            </p>
                         </div>
                     </div>
                 </div>
