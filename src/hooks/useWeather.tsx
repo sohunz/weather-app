@@ -14,7 +14,7 @@ interface WeatherData {
 }
 
 const useWeather = (location: string) => {
-    const [weather, setWeather] = useState<WeatherData>({});
+    const [weather, setWeather] = useState<WeatherData | {} | any>({});
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 

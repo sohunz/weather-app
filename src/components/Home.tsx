@@ -17,7 +17,7 @@ const Home = () => {
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const { weather, loading, error } = useWeather(location);
 
-    console.log(weather.weather);
+    console.log(weather);
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
@@ -35,6 +35,8 @@ const Home = () => {
 
     const z = weather && weather.weather;
     const data = z && z.map((i: any) => i.main);
+    const detail = z && z.map((i: any) => i.description);
+    const weatherDetail = detail && detail.length > 0 ? detail[0] : "";
 
     const weathers = (data: any) => {
         if (data) {
@@ -60,17 +62,17 @@ const Home = () => {
     if (error) return <div>Error: {error}</div>;
     return (
         <div className="w-full h-screen bg-violet-900 flex flex-col items-center justify-center overflow-hidden">
-            <div className="max-w-[480px] min-w-[480px] pt-10 rounded-xl p-10  shadow bg-violet-800 overflow-hidden">
+            <div className="max-w-[480px] lg:min-w-[480px] min-w-[360px] pt-10 rounded-xl lg:p-10 md:p-5 sm:p-5 p-5  shadow bg-violet-800 overflow-hidden">
                 <div className="w-full flex gap-2 justify-center items-center relative">
                     <input
-                        className="appearance-none shadow-md border-violet-500 rounded-full py-4 px-5 text-white leading-tight focus:outline-none bg-violet-700 focus:border-violet-500 focus:bg-violet-600 w-full"
+                        className="appearance-none shadow-md border-violet-500 rounded-full py-5 px-5 text-white leading-tight focus:outline-none bg-violet-700 focus:border-violet-500 focus:bg-violet-600 w-full"
                         type="text"
                         placeholder="Search"
                         value={input}
                         onChange={handleInput}
                     />
                     <div
-                        className="shadow-md p-4 rounded-full bg-violet-600 hover:bg-violet-700 cursor-pointer transition-all duration-300"
+                        className="shadow-md p-5 rounded-full bg-violet-600 hover:bg-violet-700 cursor-pointer transition-all duration-300"
                         onClick={() => handleSearch(input)}
                     >
                         <FiSearch size={23} color="white" />
@@ -87,8 +89,9 @@ const Home = () => {
                         ))}
                     </div>
                 </div>
-                <div className="flex flex-col justify-center items-center my-5">
-                    <div className="max-w-[190px] mb-2">{weathers(data)}</div>
+                <div className="flex flex-col justify-center items-center">
+                    <div className="max-w-[170px] mb-2">{weathers(data)}</div>
+                    <p className="text-white text-xl pb-3">{weatherDetail}</p>
                     <p className="text-white text-7xl font-bold mb-3">
                         {weatherConvert(weather.main?.temp)} °C
                     </p>
