@@ -62,7 +62,7 @@ const Home = () => {
     if (error) return <div>Error: {error}</div>;
     return (
         <div className="w-full h-screen bg-violet-900 flex flex-col items-center justify-center overflow-hidden">
-            <div className="max-w-[480px] lg:min-w-[480px] min-w-[300px] pt-10 rounded-xl lg:p-10 md:p-5 sm:p-5 p-5  shadow bg-violet-800 overflow-hidden">
+            <div className="lg:max-w-[480px] max-w-[280px] lg:min-w-[480px] min-w-[280px] pt-10 rounded-xl lg:p-10 md:p-5 sm:p-5 p-5  shadow bg-violet-800 overflow-hidden">
                 <div className="w-full flex gap-2 justify-center items-center relative">
                     <input
                         className="appearance-none shadow-md border-violet-500 rounded-full py-5 px-5 text-white leading-tight focus:outline-none bg-violet-700 focus:border-violet-500 focus:bg-violet-600 w-full"
@@ -90,12 +90,14 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-center">
-                    <div className="max-w-[170px] mb-2">{weathers(data)}</div>
-                    <p className="text-white text-xl pb-3">{weatherDetail}</p>
+                    <div className="max-w-[180px] mb-2">{weathers(data)}</div>
+                    <p className="text-xl pb-3">
+                        <span className="text-gray-300">{weatherDetail}</span>
+                    </p>
                     <p className="text-white text-7xl font-bold mb-3">
                         {weatherConvert(weather.main?.temp)} °C
                     </p>
-                    <p className="text-white text-4xl font-bold">
+                    <p className="text-gray-200 text-4xl font-bold">
                         {weather.name}
                     </p>
                 </div>
