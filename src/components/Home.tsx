@@ -62,7 +62,7 @@ const Home = () => {
     if (error) return <div>Error: {error}</div>;
     return (
         <div className="w-full h-screen bg-violet-900 flex flex-col items-center justify-center overflow-hidden">
-            <div className="max-w-[480px] lg:min-w-[480px] min-w-[360px] pt-10 rounded-xl lg:p-10 md:p-5 sm:p-5 p-5  shadow bg-violet-800 overflow-hidden">
+            <div className="max-w-[480px] lg:min-w-[480px] min-w-[300px] pt-10 rounded-xl lg:p-10 md:p-5 sm:p-5 p-5  shadow bg-violet-800 overflow-hidden">
                 <div className="w-full flex gap-2 justify-center items-center relative">
                     <input
                         className="appearance-none shadow-md border-violet-500 rounded-full py-5 px-5 text-white leading-tight focus:outline-none bg-violet-700 focus:border-violet-500 focus:bg-violet-600 w-full"
