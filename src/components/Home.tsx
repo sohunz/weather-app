@@ -4,9 +4,24 @@ import wind from "../assets/wind.png";
 import humidity from "../assets/humidity.png";
 import { weatherConvert } from "../utils/weatherConvert";
 import useWeather from "../hooks/useWeather";
+import { ChangeEvent, useState } from "react";
 
 const Home = () => {
-    const { weather, loading, error } = useWeather();
+    const [input, setInput] = useState<string>("");
+    const [location, setLocation] = useState<string>("");
+    const { weather, loading, error } = useWeather(location);
+
+    const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
+        e.preventDefault();
+        setInput(e.target.value);
+    };
+
+    const handleSearch = () => {
+        if (input.trim() !== "") {
+            setLocation(input);
+        }
+        setInput("");
+    };
 
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
@@ -18,8 +33,13 @@ const Home = () => {
                         className="appearance-none border-2 border-gray-200 rounded-full py-4 px-5 text-gray-800 leading-tight focus:outline-none bg-gray-200 focus:border-purple-500 focus:bg-white w-full"
                         type="text"
                         placeholder="Search"
+                        value={input}
+                        onChange={handleInput}
                     />
-                    <div className="border p-4 rounded-full bg-gray-200 cursor-pointer">
+                    <div
+                        className="border p-4 rounded-full bg-gray-200 cursor-pointer"
+                        onClick={handleSearch}
+                    >
                         <FiSearch size={23} />
                     </div>
                 </div>
