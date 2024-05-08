@@ -10,6 +10,7 @@ interface WeatherData {
     wind?: {
         speed?: number;
     };
+    weather: [];
 }
 
 const useWeather = (location: string) => {

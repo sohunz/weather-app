@@ -1,6 +1,10 @@
 import { FiSearch } from "react-icons/fi";
 import cloud from "../assets/cloud.png";
 import wind from "../assets/wind.png";
+import clear from "../assets/clear.png";
+import drizzle from "../assets/drizzle.png";
+import rain from "../assets/rain.png";
+import snow from "../assets/snow.png";
 import humidity from "../assets/humidity.png";
 import { weatherConvert } from "../utils/weatherConvert";
 import useWeather from "../hooks/useWeather";
@@ -12,6 +16,8 @@ const Home = () => {
     const [location, setLocation] = useState<string>("");
     const [suggestions, setSuggestions] = useState<string[]>([]);
     const { weather, loading, error } = useWeather(location);
+
+    console.log(weather.weather);
 
     const handleInput = (e: ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
@@ -27,30 +33,53 @@ const Home = () => {
         setSuggestions([]);
     };
 
+    const z = weather && weather.weather;
+    const data = z && z.map((i: any) => i.main);
+
+    const weathers = (data: any) => {
+        if (data) {
+            switch (data[0]) {
+                case "Clouds":
+                    return <img src={cloud} alt="" />;
+                case "Clear":
+                    return <img src={clear} alt="" />;
+                case "Haze":
+                    return <img src={drizzle} alt="" />;
+                case "Rain":
+                    return <img src={rain} alt="" />;
+                case "Snow":
+                    return <img src={snow} alt="" />;
+                default:
+                    return null;
+            }
+        }
+        return null;
+    };
+
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error: {error}</div>;
     return (
-        <div className="w-full h-screen bg-violet-900 flex flex-col items-center justify-center">
-            <div className="max-w-[480px] min-w-[480px] pt-10 rounded-xl p-10  shadow bg-violet-800">
-                <div className="w-full flex gap-3 justify-center items-center relative">
+        <div className="w-full h-screen bg-violet-900 flex flex-col items-center justify-center overflow-hidden">
+            <div className="max-w-[480px] min-w-[480px] pt-10 rounded-xl p-10  shadow bg-violet-800 overflow-hidden">
+                <div className="w-full flex gap-2 justify-center items-center relative">
                     <input
-                        className="appearance-none border-2 border-gray-200 rounded-full py-4 px-5 text-gray-800 leading-tight focus:outline-none bg-gray-200 focus:border-purple-500 focus:bg-white w-full"
+                        className="appearance-none shadow-md border-violet-500 rounded-full py-4 px-5 text-white leading-tight focus:outline-none bg-violet-700 focus:border-violet-500 focus:bg-violet-600 w-full"
                         type="text"
                         placeholder="Search"
                         value={input}
                         onChange={handleInput}
                     />
                     <div
-                        className="border p-4 rounded-full bg-gray-200 cursor-pointer"
+                        className="shadow-md p-4 rounded-full bg-violet-600 hover:bg-violet-700 cursor-pointer transition-all duration-300"
                         onClick={() => handleSearch(input)}
                     >
-                        <FiSearch size={23} />
+                        <FiSearch size={23} color="white" />
                     </div>
-                    <div className="w-[320px] mr-16 top-16 absolute bg-violet-700 text-black rounded-lg overflow-hidden">
+                    <div className="w-[320px] mr-16 top-16 absolute bg-violet-700 text-black rounded-lg overflow-hidden transition-all duration-300">
                         {suggestions.map((suggestion, index) => (
                             <div
                                 key={index}
-                                className="cursor-pointer text-white hover:bg-violet-600 p-2"
+                                className="cursor-pointer text-white hover:bg-violet-600 p-2 transition-all duration-200"
                                 onClick={() => handleSearch(suggestion)}
                             >
                                 <p className="pl-3 text-white">{suggestion}</p>
@@ -59,9 +88,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className="flex flex-col justify-center items-center my-5">
-                    <div className="max-w-[190px] mb-2">
-                        <img src={cloud} alt="" />
-                    </div>
+                    <div className="max-w-[190px] mb-2">{weathers(data)}</div>
                     <p className="text-white text-7xl font-bold mb-3">
                         {weatherConvert(weather.main?.temp)} °C
                     </p>
