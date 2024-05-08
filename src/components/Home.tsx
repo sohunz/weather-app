@@ -2,8 +2,14 @@ import { FiSearch } from "react-icons/fi";
 import cloud from "../assets/cloud.png";
 import wind from "../assets/wind.png";
 import humidity from "../assets/humidity.png";
+import { weatherConvert } from "../utils/weatherConvert";
+import useWeather from "../hooks/useWeather";
 
 const Home = () => {
+    const { weather, loading, error } = useWeather();
+
+    if (loading) return <div>Loading...</div>;
+    if (error) return <div>Error: {error}</div>;
     return (
         <div className="w-full h-screen bg-violet-900 flex flex-col items-center justify-center">
             <div className="max-w-[480px] min-w-[480px] pt-10 rounded-xl p-10  shadow bg-violet-800">
@@ -21,8 +27,12 @@ const Home = () => {
                     <div className="max-w-[190px] mb-2">
                         <img src={cloud} alt="" />
                     </div>
-                    <p className="text-white text-7xl font-bold mb-3">24 °C</p>
-                    <p className="text-white text-4xl font-bold">London</p>
+                    <p className="text-white text-7xl font-bold mb-3">
+                        {weatherConvert(weather.main?.temp)} °C
+                    </p>
+                    <p className="text-white text-4xl font-bold">
+                        {weather.name}
+                    </p>
                 </div>
                 <div className="flex items-center justify-between mt-10">
                     <div className="flex gap-2">
@@ -30,7 +40,10 @@ const Home = () => {
                             <img src={humidity} alt="" />
                         </div>
                         <div className="text-gray-300">
-                            <p className="text-2xl font-semibold">87%</p>
+                            <p className="text-2xl font-semibold">
+                                {weather.main?.humidity}%{" "}
+                                {/* Render humidity */}
+                            </p>
                             <p className="text-lg font-semibold">Humidity</p>
                         </div>
                     </div>
@@ -39,7 +52,10 @@ const Home = () => {
                             <img src={wind} alt="" />
                         </div>
                         <div className="text-gray-300">
-                            <p className="text-2xl font-semibold">18 km/h</p>
+                            <p className="text-2xl font-semibold">
+                                {weather.wind?.speed} km/h{" "}
+                                {/* Render wind speed */}
+                            </p>
                             <p className="text-lg font-semibold">Wind speed</p>
                         </div>
                     </div>
