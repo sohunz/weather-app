@@ -10,6 +10,7 @@ import { weatherConvert } from "../utils/weatherConvert";
 import useWeather from "../hooks/useWeather";
 import { ChangeEvent, useState } from "react";
 import { provinces } from "../data/provinces";
+import toast from "react-hot-toast";
 
 const Home = () => {
     const [input, setInput] = useState<string>("");
@@ -26,9 +27,17 @@ const Home = () => {
     };
 
     const handleSearch = (province: string) => {
-        setLocation(province);
-        setInput("");
-        setSuggestions([]);
+        const foundInSuggestions = suggestions.find(
+            (suggestion) => suggestion.toLowerCase() === province.toLowerCase()
+        );
+
+        if (foundInSuggestions) {
+            setLocation(province);
+            setInput("");
+            setSuggestions([]);
+        } else {
+            toast.error("Invalid provinces!");
+        }
     };
 
     const z = weather && weather.weather;
@@ -75,7 +84,7 @@ const Home = () => {
                     >
                         <FiSearch size={23} color="white" />
                     </div>
-                    <div className="w-[320px] mr-16 top-16 absolute bg-violet-700 text-black rounded-lg overflow-hidden transition-all duration-300">
+                    <div className="lg:w-[320px] md:w-[320px] sm:w-[320px] w-full lg:mr-16 mr-0 top-16 absolute bg-violet-700 text-black rounded-lg overflow-hidden transition-all duration-300">
                         {suggestions.map((suggestion, index) => (
                             <div
                                 key={index}
